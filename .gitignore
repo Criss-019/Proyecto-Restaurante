@@ -1,0 +1,28 @@
+# --- JAVA & SPRING BOOT ---
+# Ignora los archivos compilados (.class)
+*.class
+
+*.jar
+*.war
+
+# Ignora la carpeta de salida de Maven (donde se guarda el .jar y compilados)
+/target/
+
+# Ignora la carpeta de salida de compilación estándar
+/bin/
+
+# --- VISUAL STUDIO CODE ---
+# Ignora las configuraciones locales de tu editor (para que no choquen con las de tu compañero)
+.vscode/
+
+*.code-workspace
+
+# --- ARCHIVOS DE SISTEMA ---
+# Archivos temporales de Windows
+Thumbs.db
+desktop.ini
+# --- Mac ---
+.DS_Store
+
+# --- Logs de la aplicación ---
+*.log

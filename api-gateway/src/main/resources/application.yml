@@ -1,0 +1,17 @@
+server:
+  port: 8080 # El puerto principal por donde entrarán todos los clientes
+
+spring:
+  application:
+    name: api-gateway # El nombre con el que aparecerá en Eureka
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Permite enrutar automáticamente usando los nombres de Eureka
+          lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Aquí le indicamos dónde está Eureka
