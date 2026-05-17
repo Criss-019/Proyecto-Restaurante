@@ -43,7 +43,10 @@ spring:
           uri: lb://ms-despacho
           predicates:
             - Path=/api/despachos/**
-
+        - id: ms-facturacion
+          uri: lb://ms-facturacion
+          predicates:
+            - Path=/api/facturacion/**
 
 eureka:
   client:
