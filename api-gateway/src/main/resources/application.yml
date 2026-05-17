@@ -27,6 +27,11 @@ spring:
           uri: lb://ms-reservas
           predicates:
             - Path=/api/reservas/**
+        - id: ms-cocina
+          uri: lb://ms-cocina
+          predicates:
+            - Path=/api/cocina/**
+
 
 
 eureka:
