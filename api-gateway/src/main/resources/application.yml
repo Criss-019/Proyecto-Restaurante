@@ -31,6 +31,11 @@ spring:
           uri: lb://ms-cocina
           predicates:
             - Path=/api/cocina/**
+        - id: ms-pedidos
+          uri: lb://ms-pedidos
+          predicates:
+            - Path=/api/pedidos/**
+
 
 
 
