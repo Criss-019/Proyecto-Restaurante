@@ -15,6 +15,11 @@ spring:
           uri: lb://ms-catalogo
           predicates:
             - Path=/api/catalogo/**
+        - id: ms-stock
+          uri: lb://ms-stock
+          predicates:
+            - Path=/api/stock/**
+
 
 eureka:
   client:
