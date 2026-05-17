@@ -1,4 +1,4 @@
-package com.restaurante.ms_catalogo.exception;
+package com.restaurante.ms_clientes.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     
