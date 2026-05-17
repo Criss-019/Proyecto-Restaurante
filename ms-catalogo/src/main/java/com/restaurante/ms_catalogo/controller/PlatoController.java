@@ -1,29 +1,54 @@
 package com.restaurante.ms_catalogo.controller;
 
-import com.restaurante.ms_catalogo.model.Plato;
+import com.restaurante.ms_catalogo.dto.PlatoRequestDTO;
+import com.restaurante.ms_catalogo.dto.PlatoResponseDTO;
 import com.restaurante.ms_catalogo.service.PlatoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/catalogo") // Esta será la URL base para este microservicio
+@RequestMapping("/api/catalogo/platos")
+@RequiredArgsConstructor
 public class PlatoController {
 
-    @Autowired
-    private PlatoService service;
+    private final PlatoService platoService;
 
-    // Endpoint GET: http://localhost:8081/api/catalogo/platos
-    @GetMapping("/platos")
-    public ResponseEntity<List<Plato>> listarPlatos() {
-        return ResponseEntity.ok(service.listarTodos());
+    @PostMapping
+    public ResponseEntity<PlatoResponseDTO> crearPlato(@Valid @RequestBody PlatoRequestDTO request) {
+        log.info("Petición REST recibida para crear plato");
+        return new ResponseEntity<>(platoService.crearPlato(request), HttpStatus.CREATED);
     }
 
-    // Endpoint POST: http://localhost:8081/api/catalogo/platos
-    @PostMapping("/platos")
-    public ResponseEntity<Plato> crearPlato(@RequestBody Plato plato) {
-        return ResponseEntity.ok(service.guardarPlato(plato));
+    @GetMapping
+    public ResponseEntity<List<PlatoResponseDTO>> obtenerTodos() {
+        log.info("Petición REST recibida para listar platos");
+        return ResponseEntity.ok(platoService.obtenerTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlatoResponseDTO> obtenerPorId(@PathVariable Long id) {
+        log.info("Petición REST recibida para obtener plato por ID");
+        return ResponseEntity.ok(platoService.obtenerPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PlatoResponseDTO> actualizarPlato(@PathVariable Long id, @Valid @RequestBody PlatoRequestDTO request) {
+        log.info("Petición REST recibida para actualizar plato");
+        return ResponseEntity.ok(platoService.actualizarPlato(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarPlato(@PathVariable Long id) {
+        log.info("Petición REST recibida para eliminar plato");
+        platoService.eliminarPlato(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

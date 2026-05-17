@@ -17,6 +17,9 @@ spring:
     hibernate:
       ddl-auto: update # Crea y actualiza las tablas automáticamente basándose en tu código Java
     show-sql: true # Muestra por consola las consultas SQL que hace por detrás (muy útil para la defensa)
+    properties:
+      hibernate:
+        format_sql: true
 
 eureka:
   client:
