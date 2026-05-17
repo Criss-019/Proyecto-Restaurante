@@ -35,8 +35,10 @@ spring:
           uri: lb://ms-pedidos
           predicates:
             - Path=/api/pedidos/**
-
-
+        - id: ms-pagos
+          uri: lb://ms-pagos
+          predicates:
+            - Path=/api/pagos/**
 
 
 eureka:
