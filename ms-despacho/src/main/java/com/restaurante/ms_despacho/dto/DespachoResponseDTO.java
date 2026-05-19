@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@JsonPropertyOrder({"id", "pedidoId", "repartidorAsignado", "direccionEntrega", "estado", "fechaSalida", "fechaEntregaEstimada"})
+@JsonPropertyOrder({"id", "pedidoId", "repartidorAsignado", "direccionEntrega", "estado", "fechaSalida", "fechaEntregaEstimada", "fechaEntrega"})
 public class DespachoResponseDTO {
     private Long id;
     private Long pedidoId;
@@ -19,4 +19,5 @@ public class DespachoResponseDTO {
     private String estado;
     private LocalDateTime fechaSalida;
     private LocalDateTime fechaEntregaEstimada;
+    private LocalDateTime fechaEntrega;
 }

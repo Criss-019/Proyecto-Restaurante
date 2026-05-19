@@ -51,7 +51,8 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.actualizarPedido(id, request));
     }
 
-    @PatchMapping("/{id}/estado")
+    // Cambio de @PatchMapping a @PutMapping
+    @PutMapping("/{id}/estado")
     public ResponseEntity<PedidoResponseDTO> cambiarEstado(@PathVariable Long id, @RequestParam String estado) {
         log.info("Petición REST recibida para cambiar estado de pedido");
         return ResponseEntity.ok(pedidoService.cambiarEstado(id, estado));

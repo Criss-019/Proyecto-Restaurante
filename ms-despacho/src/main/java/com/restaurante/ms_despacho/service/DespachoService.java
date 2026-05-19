@@ -8,7 +8,7 @@ public interface DespachoService {
     DespachoResponseDTO programarDespacho(DespachoRequestDTO request);
     List<DespachoResponseDTO> obtenerTodos();
     DespachoResponseDTO obtenerPorId(Long id);
-    DespachoResponseDTO obtenerPorPedidoId(Long pedidoId); // Clave para el Orquestador
+    DespachoResponseDTO obtenerPorPedidoId(Long pedidoId);
     DespachoResponseDTO actualizarDespacho(Long id, DespachoRequestDTO request);
     DespachoResponseDTO cambiarEstado(Long id, String nuevoEstado);
     void eliminarDespacho(Long id);

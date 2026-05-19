@@ -36,4 +36,7 @@ public class Despacho {
 
     @Column(name = "fecha_entrega_estimada")
     private LocalDateTime fechaEntregaEstimada;
+
+    @Column(name = "fecha_entrega")
+    private LocalDateTime fechaEntrega;
 }

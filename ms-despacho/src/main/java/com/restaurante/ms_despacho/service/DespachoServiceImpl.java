@@ -8,6 +8,8 @@ import com.restaurante.ms_despacho.repository.DespachoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import com.restaurante.ms_despacho.client.PedidoClient;
+import feign.FeignException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
 public class DespachoServiceImpl implements DespachoService {
 
     private final DespachoRepository despachoRepository;
+
+    // Inyectamos el cliente
+    private final PedidoClient pedidoClient;
 
     @Override
     public DespachoResponseDTO programarDespacho(DespachoRequestDTO request) {
@@ -68,12 +73,30 @@ public class DespachoServiceImpl implements DespachoService {
         log.info("Actualizando despacho con ID: {}", id);
         Despacho despacho = despachoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Despacho no encontrado con ID: " + id));
-        
+
+        // Actualizamos los datos con lo que viene del cliente
         despacho.setPedidoId(request.getPedidoId());
         despacho.setRepartidorAsignado(request.getRepartidorAsignado());
         despacho.setDireccionEntrega(request.getDireccionEntrega());
         despacho.setFechaEntregaEstimada(request.getFechaEntregaEstimada());
         
+        // Actualizamos el estado que viene en el DTO
+        despacho.setEstado(request.getEstado());
+
+        // --- LÓGICA DE COMUNICACIÓN CON FEIGN ---
+        if ("ENTREGADO".equalsIgnoreCase(request.getEstado())) {
+            despacho.setFechaEntrega(LocalDateTime.now());
+            
+            try {
+                log.info("Despacho marcado como ENTREGADO. Avisando a ms-pedidos para cerrar la orden...");
+                pedidoClient.cambiarEstadoPedido(despacho.getPedidoId(), "ENTREGADO");
+                log.info("Estado del pedido actualizado exitosamente a ENTREGADO en el orquestador.");
+            } catch (FeignException e) {
+                log.error("Error al comunicar la entrega a ms-pedidos: {}", e.getMessage());
+            }
+        }
+        // --------------------------------------------------------
+
         Despacho actualizado = despachoRepository.save(despacho);
         log.info("Despacho con ID: {} actualizado con éxito", id);
         return mapToDTO(actualizado);
@@ -114,6 +137,7 @@ public class DespachoServiceImpl implements DespachoService {
                 .estado(despacho.getEstado())
                 .fechaSalida(despacho.getFechaSalida())
                 .fechaEntregaEstimada(despacho.getFechaEntregaEstimada())
+                .fechaEntrega(despacho.getFechaEntrega())
                 .build();
     }
 }

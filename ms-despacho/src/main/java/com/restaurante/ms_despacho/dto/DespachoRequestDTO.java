@@ -22,4 +22,7 @@ public class DespachoRequestDTO {
 
     @NotNull(message = "La fecha y hora estimada de entrega es obligatoria")
     private LocalDateTime fechaEntregaEstimada;
+
+    @NotBlank(message = "El estado no puede estar vacío")
+    private String estado;
 }

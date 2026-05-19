@@ -8,6 +8,10 @@ import com.restaurante.ms_pagos.repository.PagoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import com.restaurante.ms_pagos.client.PedidoClient;
+import feign.FeignException;
+import com.restaurante.ms_pagos.client.FacturacionClient;
+import com.restaurante.ms_pagos.client.dto.FacturaRequestDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,11 +24,15 @@ public class PagoServiceImpl implements PagoService {
 
     private final PagoRepository pagoRepository;
 
+    // Inyectamos la interfaz de comunicación
+    private final PedidoClient pedidoClient;
+
+    private final FacturacionClient facturacionClient;
+
     @Override
     public PagoResponseDTO registrarPago(PagoRequestDTO request) {
         log.info("Iniciando registro de pago para el pedido ID: {}", request.getPedidoId());
         
-        // El sistema toma la fecha actual y asume APROBADO como estado inicial en este flujo feliz
         Pago pago = Pago.builder()
                 .pedidoId(request.getPedidoId())
                 .monto(request.getMonto())
@@ -35,6 +43,33 @@ public class PagoServiceImpl implements PagoService {
         
         Pago guardado = pagoRepository.save(pago);
         log.info("Pago registrado exitosamente con ID: {}", guardado.getId());
+
+        // --- LÓGICA DE COMUNICACIÓN CON FEIGN (Aviso a pedidos) ---
+        try {
+            log.info("Avisando a ms-pedidos que cambie el estado a PAGADO...");
+            pedidoClient.cambiarEstadoPedido(request.getPedidoId(), "PAGADO");
+            log.info("Estado del pedido actualizado exitosamente a PAGADO.");
+        } catch (FeignException e) {
+            // Si ms-pedidos falla o está apagado, el pago se registró localmente, 
+            // pero dejamos un log de error crítico para auditoría o reintentos futuros.
+            log.error("Error al comunicar el pago a ms-pedidos: {}", e.getMessage());
+        }
+        // ----------------------------------------------
+
+        // --- Aviso a Facturación ---
+        try {
+            log.info("Avisando a ms-facturacion para emitir la boleta/factura...");
+            FacturaRequestDTO facturaRequest = FacturaRequestDTO.builder()
+                    .pedidoId(request.getPedidoId())
+                    .subtotal(request.getMonto()) // El subtotal será el monto pagado (Facturación le sumará el IVA solo)
+                    .build();
+            facturacionClient.emitirFactura(facturaRequest);
+            log.info("Orden de facturación enviada exitosamente.");
+        } catch (FeignException e) {
+            log.error("Error al comunicar con ms-facturacion: {}", e.getMessage());
+        }
+        // ----------------------------------------------
+
         return mapToDTO(guardado);
     }
 
