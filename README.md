@@ -65,3 +65,7 @@ No necesitas llamar a los puertos internos de cada servicio. El API Gateway unif
    * **Registrar Pago (POST):** `http://localhost:8080/api/pagos`
    * **Actualizar Despacho (PUT):** `http://localhost:8080/api/despachos/1`
    * **Ver Facturas Emitidas (GET):** `http://localhost:8080/api/facturacion`
+
+---
+
+**Link video del proyecto:** https://drive.google.com/file/d/1KMZFGSHe8TN04cpiwR_phMU7_99lqMrE/view?usp=drive_link
