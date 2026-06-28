@@ -56,3 +56,28 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/ # Aquí le indicamos dónde está Eureka
+
+springdoc: #Para Swagger
+  swagger-ui:
+    path: /swagger-ui/index.html
+    urls:
+      - name: 01. Catálogo
+        url: /ms-catalogo/v3/api-docs
+      - name: 02. Stock
+        url: /ms-stock/v3/api-docs
+      - name: 03. Clientes
+        url: /ms-clientes/v3/api-docs
+      - name: 04. Reservas
+        url: /ms-reservas/v3/api-docs
+      - name: 05. Cocina
+        url: /ms-cocina/v3/api-docs
+      - name: 06. Pedidos
+        url: /ms-pedidos/v3/api-docs
+      - name: 07. Pagos
+        url: /ms-pagos/v3/api-docs
+      - name: 08. Despachos
+        url: /ms-despacho/v3/api-docs
+      - name: 09. Facturación
+        url: /ms-facturacion/v3/api-docs
+      - name: 10. Notificaciones
+        url: /ms-notificaciones/v3/api-docs
