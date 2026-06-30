@@ -6,8 +6,10 @@ Utilice los siguientes enlaces externos para descargar las versiones listas para
 
 | Componente | Descripción | Enlace de Descarga (Nube externa) |
 | :--- | :--- | :--- |
-| **📦 Versión Sin Docker** <br>*(Arranque Nativo)* | Archivo `.zip` que contiene la carpeta `apps/` con los `.jar` compilados y el script `arrancar-nativo.bat` ordenado por fases. | [Descargar ZIP Nativo aquí](ENLACE_A_DRIVE_AQUÍ) |
-| **🎥 Video de Defensa Técnica** <br>*(Evaluación Individual)* | Enlace directo al video explicativo donde se evidencia el funcionamiento, testing y el aporte técnico individual. **Duración ideal: 15 minutos (Máximo permitido: 18 minutos).** | [Ver Video Explicativo aquí](https://drive.google.com/file/d/1KMZFGSHe8TN04cpiwR_phMU7_99lqMrE/view?usp=drive_link) |
+| **📦 Versión Sin Docker** <br>*(Arranque Nativo)* | Archivo `.zip` que contiene la carpeta `apps/` con los `.jar` compilados y el script `arrancar-nativo.bat` ordenado por fases. | [Descargar ZIP Nativo aquí](https://drive.google.com/file/d/1fgWNIOkFZxUmnqNbE5beFfM5L4Z4LP6p/view?usp=drive_link) |
+| **🎥 Video de Defensa Técnica** <br>*(Evaluación Individual)* | Enlace directo al video explicativo donde se evidencia el funcionamiento, testing y el aporte técnico individual. **Duración ideal: 15 minutos (Máximo permitido: 18 minutos).** | [Ver Video Explicativo aquí](https://drive.google.com/file/d/1PjO4c7HiYawGGV3OKSy6E9bQZ2d0CiuY/view?usp=sharing) |
+
+**Subtítulos video:** https://docs.google.com/document/d/1UiEDFWHDoGSXaL7Ksk8nyevi6Ni4RTmTYZtjvP9rBtY/edit?usp=sharing
 
 ---
 
