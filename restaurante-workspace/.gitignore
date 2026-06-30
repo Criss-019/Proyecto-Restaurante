@@ -2,19 +2,34 @@
 # Ignora los archivos compilados (.class)
 *.class
 
+# Excluye binarios e instaladores empaquetados
 *.jar
 *.war
+*.ear
 
 # Ignora la carpeta de salida de Maven (donde se guarda el .jar y compilados)
+target/
 /target/
 
 # Ignora la carpeta de salida de compilación estándar
 /bin/
 
-# --- VISUAL STUDIO CODE ---
-# Ignora las configuraciones locales de tu editor (para que no choquen con las de tu compañero)
-.vscode/
+# --- EJECUTABLES E INSTALADORES (Estrictamente prohibidos) ---
+*.bat
+*.sh
+*.exe
+*.msi
 
+# --- BASES DE DATOS (Datos locales y persistencia) ---
+# Ignora carpetas comunes de datos locales de BD (ej. PostgreSQL, MySQL, Oracle local, etc.)
+/data/
+/db_data/
+*.db
+*.sqlite
+
+# --- VISUAL STUDIO CODE ---
+# Ignora las configuraciones locales de tu editor
+.vscode/
 *.code-workspace
 
 # --- ARCHIVOS DE SISTEMA ---
@@ -24,5 +39,6 @@ desktop.ini
 # --- Mac ---
 .DS_Store
 
-# --- Logs de la aplicación ---
+# --- LOGS Y TEMPORALES ---
 *.log
+/logs/
